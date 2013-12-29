@@ -180,6 +180,11 @@ Is exactly the same as:
 	api.user.logout()
 	api.set_option("token", "")
 
+## Code Convention Magic
+
+To improve language integration, this library automatically translates naming conventions between the Python and UserApp domain. Ex. a call to an API such as `user.getSubscriptionDetails` can be done in good ol' Pythonian spirit as `api.user.get_subscription_details()` and `user.paymentMethod.get` as `user.payment_method.get()`, etc.
+
+
 ## License
 
 MIT - For more details, see LICENSE.
