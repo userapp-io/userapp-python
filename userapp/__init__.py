@@ -1,5 +1,6 @@
 """ Base class for making API calls to the UserApp API. """
 
+import re
 import json
 import base64
 import logging
@@ -80,6 +81,7 @@ class NativeTransport(object):
 
         if 'Content-Type' in headers:
             if headers['Content-Type'] == 'application/json':
+
                 body=json.dumps(body)
 
         if method != 'post':
@@ -240,6 +242,8 @@ class ClientProxy(object):
         return self._client.call(self._version, self._parent._service_name, self._method_name, kwargs)
 
     def __getattr__(self, name):
+    	name = self._apply_naming_convention(name)
+
         if not name in self._services:
             if self._parent is None and self._is_version(name):
                 self._services[name] = ClientProxy(
@@ -256,16 +260,6 @@ class ClientProxy(object):
 
         return self._services[name]
 
-    def _is_version(self, s):
-        if s.startswith('v'):
-            try:
-                float(s[1:])
-                return True
-            except ValueError:
-                return False
-
-        return False
-
     def get_client(self):
         return self._client
 
@@ -280,6 +274,19 @@ class ClientProxy(object):
 
     def set_logger(self, logger):
         return self._client.set_logger(logger)
+
+    def _is_version(self, s):
+        if s.startswith('v'):
+            try:
+                float(s[1:])
+                return True
+            except ValueError:
+                return False
+
+        return False
+
+    def _apply_naming_convention(self, value):
+	    return re.sub(r'(?!^)_([a-zA-Z])', lambda m: m.group(1).upper(), value)
 
 class API(ClientProxy):
     """
