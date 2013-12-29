@@ -1,6 +1,3 @@
-import os, sys
-sys.path.append(os.path.abspath('../lib/userapp/'))
-
 import userapp
 
 def normal_user(app_id, login, password):
