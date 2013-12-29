@@ -78,7 +78,7 @@ class NativeTransport(object):
         if headers is None:
             headers={}
 
-        if 'content-type' in headers:
+        if 'Content-Type' in headers:
             if headers['Content-Type'] == 'application/json':
                 body=json.dumps(body)
 
@@ -147,8 +147,8 @@ class Client(object):
             'post',
             url=target_url,
             headers={
-                'Content-Type':'application/json'#,
-                #'Authorization':'Basic '+base64.b64encode('{u}:{p}'.format(u=self._app_id, p=self._token)).encode('ascii')
+                'Content-Type':'application/json',
+                'Authorization':'Basic '+base64.b64encode('{u}:{p}'.format(u=self._app_id, p=self._token)).encode('ascii')
             },
             body=arguments
         )

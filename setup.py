@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.1.2'
+version = '0.2.1'
 
 setup(name='userapp',
       version=version,
@@ -18,7 +18,7 @@ Client library for making calls to the UserApp API.""",
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          # -*- Extra requirements: -*-
+          'requests'
       ],
       entry_points="""
       # -*- Entry points: -*-
