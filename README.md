@@ -66,7 +66,7 @@ Options determine the configuration of a client.
 * **Debug mode** (`debug`): Log steps performed when sending/recieving data from UserApp. Default: `false`.
 * **Secure mode** (`secure`): Call the API using HTTPS. Default: `true`.
 * **Base address** (`base_address`): The address to call against. Default: `api.userapp.io`.
-* **Throw errors** (`throw_errors`): Whether or not to throw an exception when response is an error. I.e. result `{"error_code":"SOME_ERROR","message":"Some message"}` results in an exception of type `UserAppServiceException`.
+* **Throw errors** (`throw_errors`): Whether or not to throw an exception when response is an error. I.e. result `{"error_code":"SOME_ERROR","message":"Some message"}` results in an exception of type `userapp.UserAppServiceException`.
 
 ### Setting options
 
@@ -134,7 +134,7 @@ Sometimes to debug an API error it's important to see what is being sent/recieve
 
 ### Catching errors
 
-When the option `throw_errors` is set to `true` (default) the client will automatically throw a `\UserApp\Exceptions\ServiceException` exception when a call results in an error. I.e.
+When the option `throw_errors` is set to `true` (default) the client will automatically throw a `userapp.UserAppServiceException` exception when a call results in an error. I.e.
 
 	try:
 		api.user.save(user_id="invalid user id")
@@ -145,7 +145,7 @@ When the option `throw_errors` is set to `true` (default) the client will automa
 		else:
 			raise
 
-Setting `throw_errors` to `false` is more of a way to tell the client to be silent. This will not throw any service specific exceptions. Though, it might throw a `\UserApp\Exceptions\UserAppException`.
+Setting `throw_errors` to `false` is more of a way to tell the client to be silent. This will not throw any service specific exceptions. Though, it might throw a `userapp.UserAppException`.
 
 	result = api.user.save(user_id="invalid user id")
 
