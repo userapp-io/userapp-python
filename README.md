@@ -72,11 +72,11 @@ Options determine the configuration of a client.
 
 Options are easiest set in the object constructor. I.e. as shown below:
 
-    api = userapp.API(debug_mode=True)
+    api = userapp.API(debug=True)
 
 Options can also be set after object creation using `api.set_option(name, value)`, as shown below:
 
-	api.set_option("debug_mode", True)
+	api.set_option("debug", True)
 
 ## Example code
 
