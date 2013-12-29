@@ -15,7 +15,7 @@ If you don't have a UserApp account, you need to [create one](https://app.userap
 
 Install using pip:
 
-	$ pip install userapp
+	$ pip install userapp --pre
 
 Load the library:
 
