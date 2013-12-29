@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: userapp
+Version: 0.1dev
+Summary: Client for accessing the UserApp API.
+Home-page: https://www.userapp.io/
+Author: Robin Orheden
+Author-email: robin.orheden@userapp.io
+License: MIT
+Description: Client library for making calls to the UserApp API.
+Keywords: user management api authentication oauth
+Platform: UNKNOWN
