@@ -11,14 +11,15 @@ If you don't have a UserApp account, you need to [create one](https://app.userap
 
 *  **Token**: A token authenticates a user on your app. If you want to create a token for your logged in user, [follow this guide](https://help.userapp.io/customer/portal/articles/1364103-how-do-i-create-an-api-token-). If you want to authenticate using a username/password, you can acquire your token by calling `api.user.login(...)`
 
-### Loading the library
+### Installing and loading the library
 
-	import os, sys
-	sys.path.append(os.path.abspath('./lib/userapp/'))
+Install using pip:
+
+	$ pip install userapp
+
+Load the library:
 
 	import userapp
-
-*(pip support coming soon!)*
 
 ### Creating your first client
 
