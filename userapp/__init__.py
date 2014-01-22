@@ -28,6 +28,9 @@ class IterableObject:
 
     def __contains__(self, key):
         return key in self.source
+    
+    def __repr__(self):
+        return str(self)
 
     def __str__(self):
         return str(self.source)
