@@ -6,6 +6,32 @@ import base64
 import logging
 import requests
 
+class IterableObject:
+    """
+    Wraps a dictionary and makes it feel and
+    look like an object but with the power of being iterable.
+    """
+    def __init__(self, source):
+        self.source=source
+
+    def __iter__(self):
+        return self.source.iteritems()
+
+    def __getattr__(self, key):
+        if not key in self.source:
+            raise AttributeError("Object has not attribute '{k}'".format(n=key))
+
+        return self.source[key]
+
+    def __getitem__(self, key):
+        return self.source[key]
+
+    def __contains__(self, key):
+        return key in self.source
+
+    def __str__(self):
+        return str(self.source)
+
 class DictionaryUtility:
     """
     Utility methods for dealing with dictionaries.
@@ -17,7 +43,7 @@ class DictionaryUtility:
         """
         def convert(item): 
             if isinstance(item, dict):
-                return type('jo', (), {k: convert(v) for k, v in item.iteritems()})
+                return IterableObject({k: convert(v) for k, v in item.iteritems()})
             if isinstance(item, list):
                 def yield_convert(item):
                     for index, value in enumerate(item):
@@ -242,7 +268,7 @@ class ClientProxy(object):
         return self._client.call(self._version, self._parent._service_name, self._method_name, kwargs)
 
     def __getattr__(self, name):
-    	name = self._apply_naming_convention(name)
+        name = self._apply_naming_convention(name)
 
         if not name in self._services:
             if self._parent is None and self._is_version(name):
@@ -286,7 +312,7 @@ class ClientProxy(object):
         return False
 
     def _apply_naming_convention(self, value):
-	    return re.sub(r'(?!^)_([a-zA-Z])', lambda m: m.group(1).upper(), value)
+        return re.sub(r'(?!^)_([a-zA-Z])', lambda m: m.group(1).upper(), value)
 
 class API(ClientProxy):
     """
