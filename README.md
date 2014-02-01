@@ -49,7 +49,7 @@ The API [`user.invoice.search`](https://app.userapp.io/#/docs/invoice/#search) a
 
 The API [`property.save`](https://app.userapp.io/#/docs/property/#save) and it's arguments `name`, `type` and `default_value` translates to:
 
-    property = api.property.save(name="my new property", type="boolean", default_value=true)
+    property = api.property.save(name="my new property", type="boolean", default_value=True)
 
 The API [`user.logout`](https://app.userapp.io/#/docs/user/#logout) without any arguments translates to:
 
@@ -64,8 +64,8 @@ Options determine the configuration of a client.
 * **Version** (`version`): Version of the API to call against. Default `1`.
 * **App Id** (`app_id`): App to authenticate against. Default `null`.
 * **Token** (`token`): Token to authenticate with. Default `null`.
-* **Debug mode** (`debug`): Log steps performed when sending/recieving data from UserApp. Default: `false`.
-* **Secure mode** (`secure`): Call the API using HTTPS. Default: `true`.
+* **Debug mode** (`debug`): Log steps performed when sending/recieving data from UserApp. Default: `False`.
+* **Secure mode** (`secure`): Call the API using HTTPS. Default: `True`.
 * **Base address** (`base_address`): The address to call against. Default: `api.userapp.io`.
 * **Throw errors** (`throw_errors`): Whether or not to throw an exception when response is an error. I.e. result `{"error_code":"SOME_ERROR","message":"Some message"}` results in an exception of type `userapp.UserAppServiceException`.
 
@@ -128,14 +128,14 @@ Since the version has been explicitly specified, the call will be made against v
 
 ### Debugging
 
-Sometimes to debug an API error it's important to see what is being sent/recieved from the calls that one make to understand the underlying reason. If you're interested in seeing these logs, you can set the client option `debug` to `true`.
+Sometimes to debug an API error it's important to see what is being sent/recieved from the calls that one make to understand the underlying reason. If you're interested in seeing these logs, you can set the client option `debug` to `True`.
 
 	api = userapp.API(debug=True)
     api.user.login(login="test", password="test")
 
 ### Catching errors
 
-When the option `throw_errors` is set to `true` (default) the client will automatically throw a `userapp.UserAppServiceException` exception when a call results in an error. I.e.
+When the option `throw_errors` is set to `True` (default) the client will automatically throw a `userapp.UserAppServiceException` exception when a call results in an error. I.e.
 
 	try:
 		api.user.save(user_id="invalid user id")
@@ -146,7 +146,7 @@ When the option `throw_errors` is set to `true` (default) the client will automa
 		else:
 			raise
 
-Setting `throw_errors` to `false` is more of a way to tell the client to be silent. This will not throw any service specific exceptions. Though, it might throw a `userapp.UserAppException`.
+Setting `throw_errors` to `False` is more of a way to tell the client to be silent. This will not throw any service specific exceptions. Though, it might throw a `userapp.UserAppException`.
 
 	result = api.user.save(user_id="invalid user id")
 
