@@ -6,6 +6,10 @@ import base64
 import logging
 import requests
 
+class IterableObjectEncoder(json.JSONEncoder):
+    def default(self, obj):
+        return obj.source
+
 class IterableObject:
     """
     Wraps a dictionary and makes it feel and
@@ -34,6 +38,9 @@ class IterableObject:
 
     def __str__(self):
         return str(self.source)
+
+    def to_json(self):
+        return json.dumps(self, cls=IterableObjectEncoder)
 
 class DictionaryUtility:
     """
