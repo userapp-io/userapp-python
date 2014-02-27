@@ -10,25 +10,34 @@ class IterableObjectEncoder(json.JSONEncoder):
     def default(self, obj):
         return obj.source
 
-class IterableObject:
+class IterableObject(object):
     """
     Wraps a dictionary and makes it feel and
     look like an object but with the power of being iterable.
     """
     def __init__(self, source):
-        self.source=source
+        object.__setattr__(self, 'source', source)
 
     def __iter__(self):
         return self.source.iteritems()
 
     def __getattr__(self, key):
         if not key in self.source:
-            raise AttributeError("Object has not attribute '{k}'".format(n=key))
+            raise AttributeError("Object has not attribute '{k}'".format(k=key))
 
         return self.source[key]
+
+    def __setattr__(self, key, value):
+        if isinstance(value, dict) or isinstance(value, list):
+            value=DictionaryUtility.to_object(value)
+        
+        self.source[key]=value
 
     def __getitem__(self, key):
         return self.source[key]
+
+    def __setitem__(self, key, value):
+        self.__setattr__(key, value)
 
     def __contains__(self, key):
         return key in self.source
