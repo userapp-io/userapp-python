@@ -51,6 +51,9 @@ class IterableObject(object):
     def to_json(self):
         return json.dumps(self, cls=IterableObjectEncoder)
 
+    def to_dict(self):
+        return DictionaryUtility.to_dict(self)
+
 class DictionaryUtility:
     """
     Utility methods for dealing with dictionaries.
@@ -64,6 +67,29 @@ class DictionaryUtility:
             if isinstance(item, dict):
                 return IterableObject({k: convert(v) for k, v in item.iteritems()})
             if isinstance(item, list):
+                def yield_convert(item):
+                    for index, value in enumerate(item):
+                        yield convert(value)
+                return list(yield_convert(item))
+            else:
+                return item
+
+        return convert(item)
+
+    @staticmethod
+    def to_dict(item):
+        """
+        Convert an object to a dictionary (recursive).
+        """
+        def convert(item):
+            if isinstance(item, IterableObject):
+                if isinstance(item.source, dict):
+                    return {k: convert(v.source) if hasattr(v, 'source') else convert(v) for k, v in item}
+                else:
+                    return convert(item.source)
+            elif isinstance(item, dict):
+                return {k: convert(v) for k, v in item.iteritems()}
+            elif isinstance(item, list):
                 def yield_convert(item):
                     for index, value in enumerate(item):
                         yield convert(value)
