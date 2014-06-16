@@ -19,7 +19,7 @@ class IterableObject(object):
         object.__setattr__(self, 'source', source)
 
     def __iter__(self):
-        return self.source.iteritems()
+        return self.source.items()
 
     def __getattr__(self, key):
         if not key in self.source:
@@ -65,7 +65,7 @@ class DictionaryUtility:
         """
         def convert(item): 
             if isinstance(item, dict):
-                return IterableObject({k: convert(v) for k, v in item.iteritems()})
+                return IterableObject({k: convert(v) for k, v in item.items()})
             if isinstance(item, list):
                 def yield_convert(item):
                     for index, value in enumerate(item):
@@ -88,7 +88,7 @@ class DictionaryUtility:
                 else:
                     return convert(item.source)
             elif isinstance(item, dict):
-                return {k: convert(v) for k, v in item.iteritems()}
+                return {k: convert(v) for k, v in item.items()}
             elif isinstance(item, list):
                 def yield_convert(item):
                     for index, value in enumerate(item):
@@ -221,7 +221,7 @@ class Client(object):
             url=target_url,
             headers={
                 'Content-Type':'application/json',
-                'Authorization':'Basic '+base64.b64encode('{u}:{p}'.format(u=self._app_id, p=self._token)).encode('ascii')
+                'Authorization':'Basic '+base64.b64encode(byte('{u}:{p}'.format(u=self._app_id, p=self._token), 'ascii')).decode('ascii')
             },
             body=arguments
         )
