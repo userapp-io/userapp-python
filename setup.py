@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.3.1'
+version = '1.0.0'
 
 classifiers = [
     "Programming Language :: Python",
