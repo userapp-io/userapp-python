@@ -1,5 +1,6 @@
 """ Base class for making API calls to the UserApp API. """
 
+import sys
 import re
 import json
 import base64
@@ -216,12 +217,20 @@ class Client(object):
             m=method
         )
 
+        encoded_credentials=None
+
+        # Python 2/3 compatibility
+        if sys.version_info[0] < 3:
+            encoded_credentials=base64.b64encode('{u}:{p}'.format(u=self._app_id, p=self._token)).encode('ascii')
+        else:
+            encoded_credentials=base64.b64encode(byte('{u}:{p}'.format(u=self._app_id, p=self._token), 'ascii')).decode('ascii')
+
         response = self._transport.call(
             'post',
             url=target_url,
             headers={
                 'Content-Type':'application/json',
-                'Authorization':'Basic '+base64.b64encode(byte('{u}:{p}'.format(u=self._app_id, p=self._token), 'ascii')).decode('ascii')
+                'Authorization':'Basic '+encoded_credentials
             },
             body=arguments
         )
