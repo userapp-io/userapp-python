@@ -223,7 +223,7 @@ class Client(object):
         if sys.version_info[0] < 3:
             encoded_credentials=base64.b64encode('{u}:{p}'.format(u=self._app_id, p=self._token)).encode('ascii')
         else:
-            encoded_credentials=base64.b64encode(byte('{u}:{p}'.format(u=self._app_id, p=self._token), 'ascii')).decode('ascii')
+            encoded_credentials=base64.b64encode(bytes('{u}:{p}'.format(u=self._app_id, p=self._token), 'ascii')).decode('ascii')
 
         response = self._transport.call(
             'post',
